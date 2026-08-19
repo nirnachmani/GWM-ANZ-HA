@@ -29,7 +29,7 @@ The integration also exposes a command status sensor because GWM remote commands
 
 ### HACS
 
-[![Open the GWM ANZ HACS repository](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=nirnachmani&repository=GWM-ANZ&category=integration)
+[![Open the GWM ANZ HACS repository](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=nirnachmani&repository=GWM-ANZ-HA&category=integration)
 
 This repository is intended to be installed as a HACS custom repository:
 
@@ -38,7 +38,7 @@ This repository is intended to be installed as a HACS custom repository:
 3. Add this repository URL:
 
 ```text
-https://github.com/nirnachmani/GWM-ANZ
+https://github.com/nirnachmani/GWM-ANZ-HA
 ```
 
 4. Select category **Integration**.
@@ -153,7 +153,7 @@ Thanks also to [zivillian](https://github.com/zivillian) and [zivillian/ora2mqtt
 
 [hacs-badge]: https://img.shields.io/badge/HACS-Custom-41BDF5.svg?style=flat-square
 [hacs-url]: https://github.com/hacs/integration
-[release-badge]: https://img.shields.io/github/v/release/nirnachmani/GWM-ANZ?style=flat-square
-[release-url]: https://github.com/nirnachmani/GWM-ANZ/releases
-[license-badge]: https://img.shields.io/github/license/nirnachmani/GWM-ANZ?style=flat-square
-[license-url]: https://github.com/nirnachmani/GWM-ANZ/blob/main/LICENSE
+[release-badge]: https://img.shields.io/github/v/release/nirnachmani/GWM-ANZ-HA?style=flat-square
+[release-url]: https://github.com/nirnachmani/GWM-ANZ-HA/releases
+[license-badge]: https://img.shields.io/github/license/nirnachmani/GWM-ANZ-HA?style=flat-square
+[license-url]: https://github.com/nirnachmani/GWM-ANZ-HA/blob/main/LICENSE
