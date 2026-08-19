@@ -76,11 +76,11 @@ The integration generates a device id automatically and discovers the vehicle fr
 
 ### First-login verification
 
-GWM may require a one-time verification code when the integration logs in as a new device. If verification is required, setup will show a second form for the verification code. Check the e-mail/SMS destination associated with your GWM account and enter the latest code.
+GWM require a one-time verification code when the integration logs in as a new device. Setup will show a second form for the verification code. Check the e-mail/SMS destination associated with your GWM account and enter the latest code.
 
 ### Australia/New Zealand account sessions
 
-The ANZ backend appears to permit only one active login session per account. Using the same account in Home Assistant and in the official GWM phone app can cause them to log each other out. A dedicated/shared vehicle account is recommended if your GWM account setup supports it.
+The ANZ backend appears to permit only one active login session per account. Using the same account in Home Assistant and in the official GWM phone app can cause them to log each other out. A dedicated/shared vehicle account is recommended.
 
 ## Remote Commands
 
@@ -107,16 +107,10 @@ Several controls have a separate number entity for duration or preset value. Cha
 - **Steering wheel time** controls how long the heated steering wheel command should run.
 - **Start vehicle time** controls how long the remote vehicle-start command should run.
 
-The official app and the GWM cloud keep some of these values as remembered presets. A preset may remain non-zero even when the function is currently off, so the integration uses live vehicle status codes for current on/off state where those codes are known.
 
 ## Charging
 
-The charging switch uses the live GWM charging command captured from the Tank 500 PHEV:
-
-- Start / Charge now: `0x01` with `switchOrder = 1`.
-- Stop charging: `0x01` with `switchOrder = 2`.
-
-The switch is only available when the car reports the charge plug/session as connected. On the tested vehicle this is based on status code `2042082`. Some EVSE modes may not signal a recognizable plugged-in state to the car until a real charging session has started.
+The charging switch is only available when the car reports the charge plug/session as connected. 
 
 The **Charging status** sensor may report:
 
