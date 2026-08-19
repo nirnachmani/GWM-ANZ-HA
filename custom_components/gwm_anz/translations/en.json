@@ -1,0 +1,249 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "GWM ANZ Cloud",
+        "description": "Enter your GWM ANZ app credentials. Device ID is generated automatically; VIN is discovered from the cloud. Remote command PIN is optional and only needed for commands such as lock/climate/windows.",
+        "data": {
+          "account": "Email/account",
+          "password": "Password",
+          "country": "Country/region",
+          "security_password": "Remote command PIN/password (optional)",
+          "poll_interval": "Poll interval seconds"
+        },
+        "data_description": {
+          "account": "Your GWM ANZ app login email/account.",
+          "password": "Your GWM ANZ app password.",
+          "country": "Use AU for Australia or NZ for New Zealand.",
+          "security_password": "Optional. The in-app remote-control security PIN/password; only required when sending vehicle commands. You can leave it blank for sensors only.",
+          "poll_interval": "How often Home Assistant polls GWM cloud."
+        }
+      },
+      "verify": {
+        "title": "GWM ANZ verification",
+        "description": "A GWM verification code has been sent to {account}. Enter that code here. If you already received a code, use it; the integration may not request another one immediately because GWM rate-limits code requests.",
+        "data": {
+          "verify_code": "Verification code"
+        },
+        "data_description": {
+          "verify_code": "The code sent to your GWM account email after the previous login attempt."
+        }
+      },
+      "reconfigure": {
+        "title": "Reconfigure GWM ANZ Cloud",
+        "description": "Currently configured account: {account}. Update the saved GWM credentials/options. If GWM requires verification, a code will be sent to that account email and you will be asked for it on the next screen.",
+        "data": {
+          "account": "Email/account",
+          "password": "Password",
+          "country": "Country/region",
+          "security_password": "Remote command PIN/password (optional)",
+          "poll_interval": "Poll interval seconds"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Re-authenticate GWM ANZ Cloud",
+        "description": "Currently configured account: {account}. Enter the GWM password for this account. If GWM requires verification, a code will be sent to that account email and you will be asked for it on the next screen.",
+        "data": {
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Invalid credentials",
+      "invalid_code": "Verification failed. Check the latest code sent to your email and try again.",
+      "verification_required": "Enter the verification code sent by GWM",
+      "cannot_connect": "Cannot connect"
+    }
+  },
+  "exceptions": {
+    "auth_failed": {
+      "message": "GWM ANZ authentication failed."
+    },
+    "request_failed": {
+      "message": "GWM ANZ request failed."
+    },
+    "invalid_operation_time": {
+      "message": "Climate operation time must be a whole number from 5 to 30 minutes."
+    },
+    "unsupported_climate_mode": {
+      "message": "This vehicle only supports remote A/C on/off from Home Assistant."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "soc": {
+        "name": "Battery"
+      },
+      "charging_status": {
+        "name": "Charging status"
+      },
+      "range": {
+        "name": "Range"
+      },
+      "fuel_range": {
+        "name": "Fuel range"
+      },
+      "remaining_charging_time": {
+        "name": "Remaining charging time"
+      },
+      "odometer": {
+        "name": "Odometer"
+      },
+      "command_status": {
+        "name": "Command status"
+      },
+      "update_time": {
+        "name": "Update time"
+      },
+      "acquisition_time": {
+        "name": "Acquisition time"
+      },
+      "last_refresh": {
+        "name": "Last refresh"
+      },
+      "charge_mode": {
+        "name": "Charge mode"
+      },
+      "tire_pressure_front_left": {
+        "name": "Front left tire pressure"
+      },
+      "tire_pressure_front_right": {
+        "name": "Front right tire pressure"
+      },
+      "tire_pressure_rear_left": {
+        "name": "Rear left tire pressure"
+      },
+      "tire_pressure_rear_right": {
+        "name": "Rear right tire pressure"
+      },
+      "tire_temperature_front_left": {
+        "name": "Front left tire temperature"
+      },
+      "tire_temperature_front_right": {
+        "name": "Front right tire temperature"
+      },
+      "tire_temperature_rear_left": {
+        "name": "Rear left tire temperature"
+      },
+      "tire_temperature_rear_right": {
+        "name": "Rear right tire temperature"
+      }
+    },
+    "binary_sensor": {
+      "charging_active": {
+        "name": "Charging active"
+      },
+      "charge_plug_connected": {
+        "name": "Charge plug connected"
+      },
+      "lock_open": {
+        "name": "Lock open"
+      },
+      "ac_active": {
+        "name": "AC active"
+      },
+      "window_front_left_open": {
+        "name": "Front left window"
+      },
+      "window_front_right_open": {
+        "name": "Front right window"
+      },
+      "window_rear_left_open": {
+        "name": "Rear left window"
+      },
+      "window_rear_right_open": {
+        "name": "Rear right window"
+      }
+    },
+    "lock": {
+      "door_lock": {
+        "name": "Door lock"
+      }
+    },
+    "button": {
+      "close_windows": {
+        "name": "Close windows"
+      },
+      "close_sunroof": {
+        "name": "Close sunroof"
+      }
+    },
+    "climate": {
+      "climate": {
+        "name": "Climate"
+      }
+    },
+    "number": {
+      "ac_temperature": {
+        "name": "A/C temperature"
+      },
+      "operation_time": {
+        "name": "Climate operation time"
+      },
+      "front_defrost_minutes": {
+        "name": "Front demisting duration"
+      },
+      "rear_defrost_minutes": {
+        "name": "Rear demisting duration"
+      },
+      "seat_front_left": {
+        "name": "Front left seat level"
+      },
+      "seat_front_right": {
+        "name": "Front right seat level"
+      },
+      "seat_rear_left": {
+        "name": "Rear left seat level"
+      },
+      "seat_rear_right": {
+        "name": "Rear right seat level"
+      },
+      "seat_minutes": {
+        "name": "Seat climate time"
+      },
+      "steering_wheel_minutes": {
+        "name": "Steering wheel time"
+      },
+      "start_vehicle_minutes": {
+        "name": "Start vehicle time"
+      }
+    },
+    "switch": {
+      "air_circulation": {
+        "name": "Air circulation"
+      },
+      "charging": {
+        "name": "Charging"
+      },
+      "front_defrost": {
+        "name": "Front demisting"
+      },
+      "rear_defrost": {
+        "name": "Rear demisting"
+      },
+      "seat": {
+        "name": "Seat climate"
+      },
+      "steering_wheel": {
+        "name": "Heated steering wheel"
+      },
+      "start_vehicle": {
+        "name": "Start vehicle"
+      }
+    },
+    "select": {
+      "seat_mode": {
+        "name": "Seat climate mode",
+        "state": {
+          "heat": "Heat",
+          "ventilation": "Ventilation"
+        }
+      }
+    },
+    "device_tracker": {
+      "location": {
+        "name": "Location"
+      }
+    }
+  }
+}

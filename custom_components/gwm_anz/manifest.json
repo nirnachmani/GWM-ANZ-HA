@@ -1,0 +1,13 @@
+{
+  "domain": "gwm_anz",
+  "name": "GWM ANZ Cloud",
+  "codeowners": [
+    "@nirnachmani"
+  ],
+  "config_flow": true,
+  "documentation": "https://github.com/nirnachmani/GWM-ANZ",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/nirnachmani/GWM-ANZ/issues",
+  "requirements": [],
+  "version": "0.1.0"
+}

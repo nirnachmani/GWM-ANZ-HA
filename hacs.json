@@ -1,0 +1,15 @@
+{
+  "name": "GWM ANZ",
+  "render_readme": true,
+  "domains": [
+    "binary_sensor",
+    "button",
+    "climate",
+    "device_tracker",
+    "lock",
+    "number",
+    "select",
+    "sensor",
+    "switch"
+  ]
+}

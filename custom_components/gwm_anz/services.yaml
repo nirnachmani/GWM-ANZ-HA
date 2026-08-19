@@ -1,0 +1,323 @@
+refresh:
+  name: Refresh
+  description: Request an immediate GWM ANZ cloud refresh.
+
+send_raw_command:
+  name: Send raw T5 command
+  description: Experimental low-level vehicle command using the app's T5 sendCmd shape.
+  fields:
+    vin:
+      name: VIN
+      description: Plain or encrypted VIN. If omitted, the first vehicle is used.
+      selector: {text: {}}
+    instructions:
+      name: Instructions
+      description: Dict/JSON for the T5 instructions map, e.g. '{"0x05":{"operationTime":"0","switchOrder":"2"}}'.
+      required: true
+      selector: {object: {}}
+    security_password:
+      name: Security password
+      description: Remote command PIN/password. If omitted, configured value is used. The integration MD5-hashes it like the app.
+      selector: {text: {type: password}}
+
+set_windows:
+  name: Set windows/sunroof/shade
+  description: T5 window command. 0x08 is confirmed for close-windows from the reference implementation; other values are sent exactly as provided.
+  fields:
+    instruction_key: {name: Instruction key, default: "0x08", selector: {text: {}}}
+    left_front: {selector: {number: {min: 0, max: 10, mode: box}}}
+    right_front: {selector: {number: {min: 0, max: 10, mode: box}}}
+    left_back: {selector: {number: {min: 0, max: 10, mode: box}}}
+    right_back: {selector: {number: {min: 0, max: 10, mode: box}}}
+    sky_light: {selector: {number: {min: 0, max: 10, mode: box}}}
+    shade_screen: {selector: {number: {min: 0, max: 10, mode: box}}}
+    switch_order: {selector: {text: {}}}
+    vin: {selector: {text: {}}}
+    security_password: {selector: {text: {type: password}}}
+
+search_vehicle:
+  name: Search vehicle / horn / flash
+  description: T5 search command body from APK Search(flashing, whistle). Requires an instruction_key from capability mapping/capture.
+  fields:
+    instruction_key: {required: true, selector: {text: {}}}
+    flashing: {selector: {text: {}}}
+    whistle: {selector: {text: {}}}
+    switch_order: {selector: {text: {}}}
+    operation_time: {selector: {text: {}}}
+    vin: {selector: {text: {}}}
+    security_password: {selector: {text: {type: password}}}
+
+set_defrost:
+  name: Set defrost
+  description: "T5 defrost command (0x0B). Live-captured ANZ shape: defrostFront/defrostBack plus operationTime (minutes) and switchOrder (1=on, 2=off) inside the defrost object."
+  fields:
+    instruction_key: {name: Instruction key, default: "0x0B", selector: {text: {}}}
+    defrost_front: {selector: {text: {}}}
+    defrost_back: {selector: {text: {}}}
+    switch_order: {selector: {text: {}}}
+    operation_time: {selector: {text: {}}}
+    vin: {selector: {text: {}}}
+    security_password: {selector: {text: {type: password}}}
+
+set_circulation:
+  name: Set air circulation
+  description: "Toggle air circulation (air cleaner, 0x11) with a fixed ~60s runtime. switchOrder 1=on, 2=off."
+  fields:
+    switch_order: {required: true, selector: {select: {options: [{value: "1", label: "On"}, {value: "2", label: "Off"}]}}}
+    vin: {selector: {text: {}}}
+    security_password: {selector: {text: {type: password}}}
+
+set_seat:
+  name: Set seat heating/ventilation
+  description: "T5 seat command (0x0A). Live-captured ANZ shape: per-seat levels 0-9 (leftFront/rightFront/leftBack/rightBack), operationMode (1=heat, 2=ventilation), operationTime (minutes), switchOrder (1=on, 2=off)."
+  fields:
+    instruction_key: {name: Instruction key, default: "0x0A", selector: {text: {}}}
+    left_front: {selector: {number: {min: 0, max: 9, mode: box}}}
+    right_front: {selector: {number: {min: 0, max: 9, mode: box}}}
+    left_back: {selector: {number: {min: 0, max: 9, mode: box}}}
+    right_back: {selector: {number: {min: 0, max: 9, mode: box}}}
+    operation_mode: {selector: {select: {options: [{value: "1", label: "Heat"}, {value: "2", label: "Ventilation"}]}}}
+    operation_time: {selector: {number: {min: 0, max: 60, mode: box}}}
+    switch_order: {selector: {select: {options: [{value: "1", label: "On"}, {value: "2", label: "Off"}]}}}
+    vin: {selector: {text: {}}}
+    security_password: {selector: {text: {type: password}}}
+
+set_light:
+  name: Set lights
+  description: T5 light command body from APK Light(headlamp, farNear, fogLamps, indicatorLamp, leftTurn, rightTurn). Requires instruction_key from capability mapping/capture.
+  fields:
+    instruction_key: {required: true, selector: {text: {}}}
+    headlamp: {selector: {text: {}}}
+    far_near: {selector: {text: {}}}
+    fog_lamps: {selector: {text: {}}}
+    indicator_lamp: {selector: {text: {}}}
+    left_turn: {selector: {text: {}}}
+    right_turn: {selector: {text: {}}}
+    switch_order: {selector: {text: {}}}
+    operation_time: {selector: {text: {}}}
+    vin: {selector: {text: {}}}
+    security_password: {selector: {text: {type: password}}}
+
+set_activation:
+  name: Set activation function
+  description: T5 activation command body from APK Activation(functionType, switchOrder). Requires instruction_key from capability mapping/capture.
+  fields:
+    instruction_key: {required: true, selector: {text: {}}}
+    function_type: {required: true, selector: {text: {}}}
+    switch_order: {required: true, selector: {text: {}}}
+    vin: {selector: {text: {}}}
+    security_password: {selector: {text: {type: password}}}
+
+set_idle_charging:
+  name: Set idle charging
+  description: T5 idleCharging command body from APK CmdBody(idleCharging). Requires instruction_key from capability mapping/capture.
+  fields:
+    instruction_key: {required: true, selector: {text: {}}}
+    idle_charging: {required: true, selector: {text: {}}}
+    switch_order: {selector: {text: {}}}
+    operation_time: {selector: {text: {}}}
+    vin: {selector: {text: {}}}
+    security_password: {selector: {text: {type: password}}}
+
+send_t5_charging_instruction:
+  name: Send T5 charging instruction
+  description: T5 CmdBody.Charging payload from APK Charging(startTime, endTime, startSoc, endSoc). Function/key semantics are not confirmed; requires instruction_key from capability mapping/capture.
+  fields:
+    instruction_key: {required: true, selector: {text: {}}}
+    start_time: {required: true, selector: {number: {mode: box}}}
+    end_time: {required: true, selector: {number: {mode: box}}}
+    start_soc: {required: true, selector: {number: {min: 0, max: 100, mode: box}}}
+    end_soc: {required: true, selector: {number: {min: 0, max: 100, mode: box}}}
+    vin: {selector: {text: {}}}
+    security_password: {selector: {text: {type: password}}}
+
+get_vehicle_charging_info:
+  name: Get vehicle charging plan/info
+  description: Calls vehicleCharge/getChargingInfos using the vehicle VIN header/query as found in APK fe/n.smali.
+  fields:
+    vin: {selector: {text: {}}}
+
+get_vehicle_charge_logs:
+  name: Get vehicle charge logs
+  description: Calls vehicleCharge/getChargeLogs with vin/pageNum/pageSize as found in APK GetChargeLogsBean.
+  fields:
+    vin: {selector: {text: {}}}
+    page_num: {default: 1, selector: {number: {min: 1, mode: box}}}
+    page_size: {default: 20, selector: {number: {min: 1, max: 100, mode: box}}}
+
+set_vehicle_charging_plan:
+  name: Set vehicle charging plan
+  description: Calls vehicleCharge/setChargingPlan with SetChargingPlanBean fields confirmed from APK.
+  fields:
+    enable: {required: true, selector: {boolean: {}}}
+    start_time: {required: true, selector: {text: {}}}
+    end_time: {required: true, selector: {text: {}}}
+    weeks: {required: true, selector: {text: {}}}
+    plan_type: {selector: {number: {mode: box}}}
+    seq_no: {selector: {text: {}}}
+    vin: {selector: {text: {}}}
+
+query_battery_preheat_plan:
+  name: Query battery preheat plan
+  description: Calls vehicleBatPack/queryBatPackPreheatPlan with vin as found in APK fe/m.smali.
+  fields:
+    vin: {selector: {text: {}}}
+
+set_battery_preheat_plan:
+  name: Set battery preheat plan
+  description: Calls vehicleBatPack/setBatPackPreheatPlan with PreheatPlanRequest fields confirmed from APK.
+  fields:
+    switch_order: {required: true, selector: {boolean: {}}}
+    start_time: {required: true, selector: {text: {}}}
+    seq_no: {selector: {text: {}}}
+    vin: {selector: {text: {}}}
+
+get_compound_templates:
+  name: Get compound command templates
+  description: Calls vehicle/getCompoundCommandTemplateList; one-touch comfort template list.
+  fields:
+    vin: {selector: {text: {}}}
+
+get_compound_template_info:
+  name: Get compound command template info
+  description: Calls vehicle/getCompoundCommandTemplateInfo with templateId.
+  fields:
+    template_id: {required: true, selector: {text: {}}}
+    vin: {selector: {text: {}}}
+
+check_security_password:
+  name: Check security password
+  description: Calls userAuth/checkSecurityPassword with MD5-normalized security password as found in APK.
+  fields:
+    security_password: {selector: {text: {type: password}}}
+    type: {default: "2", selector: {text: {}}}
+
+open_sliding_door:
+  name: Schedule/open sliding door
+  description: Calls slideDoor/openSlideDoor with SlidingDoorOpenRequest(validityPeriod,type,vin,seqNo) confirmed from APK. Only use if the vehicle has automatic sliding doors.
+  fields:
+    validity_period: {required: true, selector: {number: {min: 0, mode: box}}}
+    type: {required: true, selector: {number: {mode: box}}}
+    seq_no: {selector: {text: {}}}
+    vin: {selector: {text: {}}}
+
+cancel_sliding_door:
+  name: Cancel sliding door schedule
+  description: Calls slideDoor/cancelSlideDoor with SlidingDoorCloseRequest(seqNo,vin) confirmed from APK.
+  fields:
+    seq_no: {selector: {text: {}}}
+    vin: {selector: {text: {}}}
+
+charge_station_status:
+  name: Charge station status
+  description: Experimental call to vehicleGwmChargeStation/getChargingStatus. This is public/station charging, not proven home vehicle charging.
+
+charge_station_info:
+  name: Charge station session info
+  description: Calls vehicleGwmChargeStation/getChargingInfo(sessionId).
+  fields:
+    session_id: {required: true, selector: {text: {}}}
+
+charge_station_points:
+  name: Charge station points
+  description: Calls vehicleGwmChargeStation/getChargingPoints(accessCode,serialNumber,type).
+  fields:
+    access_code: {required: true, selector: {text: {}}}
+    serial_number: {required: true, selector: {text: {}}}
+    type: {required: true, selector: {number: {mode: box}}}
+
+charge_station_new_points:
+  name: New charge station points
+  description: Calls vehicleGwmChargeStation/getNewChargingPoints(accessCode,serialNumber,type).
+  fields:
+    access_code: {required: true, selector: {text: {}}}
+    serial_number: {required: true, selector: {text: {}}}
+    type: {required: true, selector: {number: {mode: box}}}
+
+charge_station_create_session:
+  name: Create charge station session
+  description: Calls vehicleGwmChargeStation/createChargingSession(s) using CreateChargingSessionsBean(accessCode,connectorId,serialNumber).
+  fields:
+    access_code: {required: true, selector: {text: {}}}
+    connector_id: {required: true, selector: {text: {}}}
+    serial_number: {required: true, selector: {text: {}}}
+    plural: {default: true, selector: {boolean: {}}}
+
+charge_station_check_in:
+  name: Charge station check in
+  description: Calls vehicleGwmChargeStation/chargingCheckIn. Body model was not recovered, so pass a raw object captured from app if needed.
+  fields:
+    body: {required: true, selector: {object: {}}}
+
+charge_station_check_out:
+  name: Charge station check out
+  description: Calls vehicleGwmChargeStation/chargingCheckOut with StartChargeBean-shaped body.
+  fields:
+    access_code: {required: true, selector: {text: {}}}
+    serial_number: {required: true, selector: {text: {}}}
+    session_id: {required: true, selector: {text: {}}}
+
+charge_station_unlock:
+  name: Unlock charge station smart lock
+  description: Calls vehicleGwmChargeStation/smartLocks/unlock with UnlockBean fields.
+  fields:
+    access_code: {required: true, selector: {text: {}}}
+    connector_id: {required: true, selector: {text: {}}}
+    serial_number: {required: true, selector: {text: {}}}
+    session_id: {required: true, selector: {text: {}}}
+    smart_lock_id: {required: true, selector: {text: {}}}
+
+charge_station_cancel:
+  name: Cancel charge station session
+  description: Calls vehicleGwmChargeStation/cancel(sessionId).
+  fields:
+    session_id: {required: true, selector: {text: {}}}
+
+charge_station_search:
+  name: Search charge stations
+  description: Calls vehicleChargeStation/getChargeStation(longitude,latitude,keyWord,pageIndex,pageSize).
+  fields:
+    longitude: {required: true, selector: {text: {}}}
+    latitude: {required: true, selector: {text: {}}}
+    key_word: {default: "", selector: {text: {}}}
+    page_index: {default: 1, selector: {number: {min: 1, mode: box}}}
+    page_size: {default: 20, selector: {number: {min: 1, max: 100, mode: box}}}
+
+charge_station_operators:
+  name: Charge station operators
+  description: Calls vehicleChargeStation/getAllOperators.
+
+charge_station_by_id:
+  name: Charge station by id
+  description: Calls vehicleChargeStation/getChargeStationById(stationId,type).
+  fields:
+    station_id: {required: true, selector: {text: {}}}
+    type: {required: true, selector: {number: {mode: box}}}
+
+charge_station_activity_list:
+  name: Charge station activity list
+  description: Calls vehicleChargeStation/activity/online/list.
+
+nearby_charge_stations:
+  name: Nearby charge stations
+  description: Calls vehicleChargeStation/getNearbyChargeStation(longitude,latitude,types).
+  fields:
+    longitude: {required: true, selector: {text: {}}}
+    latitude: {required: true, selector: {text: {}}}
+    types: {selector: {text: {}}}
+
+charge_station_start:
+  name: Start charge station session
+  description: Experimental public/station charging StartCharge endpoint, not vehicle home-charging control.
+  fields:
+    access_code: {required: true, selector: {text: {}}}
+    serial_number: {required: true, selector: {text: {}}}
+    session_id: {required: true, selector: {text: {}}}
+
+charge_station_stop:
+  name: Stop charge station session
+  description: Experimental public/station charging stopCharge endpoint, not vehicle home-charging control.
+  fields:
+    access_code: {required: true, selector: {text: {}}}
+    serial_number: {required: true, selector: {text: {}}}
+    session_id: {required: true, selector: {text: {}}}
