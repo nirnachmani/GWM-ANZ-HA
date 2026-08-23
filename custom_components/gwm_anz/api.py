@@ -66,7 +66,7 @@ def _json_dumps(data: Any) -> str:
 class GwmAnzClient:
     """Small direct cloud client based on GWM ANZ 1.0.4 traffic."""
 
-    def __init__(self, session: aiohttp.ClientSession, *, account: str, password: str, country: str = "AU", device_id: str = "72c00f98683be9dd", access_token: str | None = None, refresh_token: str | None = None) -> None:
+    def __init__(self, session: aiohttp.ClientSession, *, account: str, password: str, country: str = "AU", device_id: str = "", access_token: str | None = None, refresh_token: str | None = None) -> None:
         self._session = session
         self.account = account
         self.password = password
