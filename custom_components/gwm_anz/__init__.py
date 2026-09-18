@@ -36,10 +36,6 @@ def _first_entry(hass: HomeAssistant) -> ConfigEntry:
     return entries[0]
 
 
-async def _async_options_updated(hass: HomeAssistant, entry: ConfigEntry) -> None:
-    await hass.config_entries.async_reload(entry.entry_id)
-
-
 def _vehicle_by_vin(entry: ConfigEntry, vin: str | None) -> dict[str, Any]:
     coord = entry.runtime_data.coordinator
     vehicles = coord.vehicles
@@ -92,7 +88,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         raise ConfigEntryNotReady(str(err)) from err
     hass.config_entries.async_update_entry(entry, data={**entry.data, CONF_DEVICE_ID: device_id, **api.tokens})
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
-    entry.async_on_unload(entry.add_update_listener(_async_options_updated))
 
     for service in GWM_ANZ_SERVICES:
         if hass.services.has_service(DOMAIN, service):
