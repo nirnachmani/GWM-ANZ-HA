@@ -84,7 +84,7 @@ class GwmAnzConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     @staticmethod
     def async_get_options_flow(config_entry):
         """Create the options flow."""
-        return GwmAnzOptionsFlow(config_entry)
+        return GwmAnzOptionsFlow()
 
     async def async_step_user(self, user_input: dict[str, Any] | None = None) -> ConfigFlowResult:
         """Collect account credentials and trigger login/SMS if needed."""
@@ -218,11 +218,8 @@ class GwmAnzConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             return "cannot_connect"
 
 
-class GwmAnzOptionsFlow(config_entries.OptionsFlow):
+class GwmAnzOptionsFlow(config_entries.OptionsFlowWithReload):
     """Handle options for GWM ANZ."""
-
-    def __init__(self, config_entry) -> None:
-        self.config_entry = config_entry
 
     async def async_step_init(self, user_input: dict[str, Any] | None = None) -> ConfigFlowResult:
         """Manage options."""
