@@ -668,7 +668,7 @@ def _config_minutes(config: dict[str, Any], key: str) -> int | None:
 def map_snapshot(vehicle: dict[str,Any], status: dict[str,Any], basics: dict[str,Any], capabilities: Any, encrypted_vin: str, plain_vin: str | None) -> dict[str,Any]:
     items = _item_map(status)
     values = {
-        "soc": _num(items,"2013021"), "range_km": _num(items,"2011501"), "fuel_range_km": _num(items,"2011007"), "remaining_charging_time_min": _num(items,"2013022"), "charge_mode": str(_val(items,"2013023")) if _val(items,"2013023") is not None else None,
+        "soc": _num(items,"2013021"), "range_km": _num(items,"2011501"), "fuel_range_km": _num(items,"2011007"), "fuel_amount_l": _num(items,"2017002"), "remaining_charging_time_min": _num(items,"2013022"), "charge_mode": str(_val(items,"2013023")) if _val(items,"2013023") is not None else None,
         "charging_status": _charging_status(items), "charging_active": str(_val(items,"2041142")) == "1" if _val(items,"2041142") is not None else None,
         "charge_plug_connected": _bool01(items,"2042082"), "odometer_km": _num(items,"2103010"),
         "tire_pressure_front_left_kpa": _num(items,"2101001"), "tire_pressure_front_right_kpa": _num(items,"2101002"), "tire_pressure_rear_left_kpa": _num(items,"2101003"), "tire_pressure_rear_right_kpa": _num(items,"2101004"),

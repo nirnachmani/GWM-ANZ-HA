@@ -13,7 +13,7 @@ Remote commands affect a real vehicle. Test every command while the vehicle is p
 
 Entities currently provided include:
 
-- Sensors: battery SOC, electric range, fuel range, odometer, charging status, remaining charging time, charge mode, tyre pressures, tyre temperatures, command status, update/acquisition timestamps, and last refresh time.
+- Sensors: battery SOC, electric range, fuel range, remaining fuel, odometer, charging status, remaining charging time, charge mode, tyre pressures, tyre temperatures, command status, update/acquisition timestamps, and last refresh time.
 - Binary sensors: charging active, charge plug connected, lock open, A/C active, window open states, air circulation, front/rear demisting, and other live vehicle states where available.
 - Device tracker: vehicle GPS location when returned by the GWM cloud.
 - Climate: remote A/C on/off.
