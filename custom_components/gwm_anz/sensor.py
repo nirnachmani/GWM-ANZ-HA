@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Callable
 from homeassistant.components.sensor import SensorDeviceClass, SensorEntity, SensorEntityDescription, SensorStateClass
-from homeassistant.const import PERCENTAGE, UnitOfLength, UnitOfPressure, UnitOfTemperature, UnitOfTime
+from homeassistant.const import PERCENTAGE, UnitOfLength, UnitOfPressure, UnitOfTemperature, UnitOfTime, UnitOfVolume
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -21,6 +21,7 @@ SENSORS=(
  GwmAnzSensorDescription(key="charging_status",translation_key="charging_status",device_class=SensorDeviceClass.ENUM,options=["disconnected","connected","charging","awaiting_charging","waiting_for_power","error"],value_fn=_v("charging_status")),
  GwmAnzSensorDescription(key="range_km",translation_key="range",device_class=SensorDeviceClass.DISTANCE,native_unit_of_measurement=UnitOfLength.KILOMETERS,state_class=SensorStateClass.MEASUREMENT,value_fn=_v("range_km")),
  GwmAnzSensorDescription(key="fuel_range_km",translation_key="fuel_range",device_class=SensorDeviceClass.DISTANCE,native_unit_of_measurement=UnitOfLength.KILOMETERS,state_class=SensorStateClass.MEASUREMENT,value_fn=_v("fuel_range_km")),
+ GwmAnzSensorDescription(key="fuel_amount_l",translation_key="remaining_fuel",device_class=SensorDeviceClass.VOLUME_STORAGE,native_unit_of_measurement=UnitOfVolume.LITERS,state_class=SensorStateClass.MEASUREMENT,value_fn=_v("fuel_amount_l")),
  GwmAnzSensorDescription(key="remaining_charging_time_min",translation_key="remaining_charging_time",device_class=SensorDeviceClass.DURATION,native_unit_of_measurement=UnitOfTime.MINUTES,state_class=SensorStateClass.MEASUREMENT,value_fn=_v("remaining_charging_time_min")),
  GwmAnzSensorDescription(key="charge_mode",translation_key="charge_mode",entity_category=EntityCategory.DIAGNOSTIC,value_fn=_v("charge_mode")),
  GwmAnzSensorDescription(key="tire_pressure_front_left_kpa",translation_key="tire_pressure_front_left",device_class=SensorDeviceClass.PRESSURE,native_unit_of_measurement=UnitOfPressure.KPA,state_class=SensorStateClass.MEASUREMENT,value_fn=_v("tire_pressure_front_left_kpa")),
